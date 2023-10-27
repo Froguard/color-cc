@@ -17,7 +17,7 @@
     "lint:fix": "eslint --fix '**/*.ts'",
     "prerelease": "npm rum build",
     "release": "npm publish --regitry=https://registry.npmjs.org",
-    "postinstall": "husky install",
+    "_postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable"
   },

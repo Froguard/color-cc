@@ -9,8 +9,8 @@
 ## install
 
 ```sh
-npm i -S colorcc
-# yarn add colorcc
+npm i -S color-cc
+# yarn add color-cc
 ```
 
 ## usage
@@ -18,7 +18,7 @@ npm i -S colorcc
 ### 1.commonjs
 
 ```js
-const ColorCC = require('colorcc').default;
+const ColorCC = require('color-cc').default;
 
 console.log(ColorCC.green('hello'));
 console.log(ColorCC.red.underline('i like cake and pies'));
@@ -34,7 +34,7 @@ console.error(ColorCC.error('It occurs errors!'));
 ### 2.typescript/esnext
 
 ```ts
-import ColorCC from 'colorcc';
+import ColorCC from 'color-cc';
 // com
 console.log('');
 console.log(ColorCC.error('error text...'));
