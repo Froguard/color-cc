@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "declaration": true,
+        "sourceMap": false,
+        "removeComments": false,
+        "newLine": "crlf",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitAny": true,
+        "allowUnusedLabels": true,
+        "allowUnreachableCode": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": false,
+        "strictNullChecks": false
+    },
+    "include": ["index.ts"],
+    "exclude": [
+        "node_modules",
+        "__tests__",
+        "__coverage__"
+    ]
+}
