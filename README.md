@@ -19,6 +19,7 @@ npm i -S color-cc
 
 ```js
 const ColorCC = require('color-cc').default;
+// const { ColorCC } = require('color-cc');
 
 console.log(ColorCC.green('hello'));
 console.log(ColorCC.red.underline('i like cake and pies'));

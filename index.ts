@@ -309,7 +309,7 @@ export function createColorfulTool(useColor?: boolean) {
 /**
  * ColorCC
  */
-const ColorCC = createColorfulTool(true);
+export const ColorCC = createColorfulTool(true);
 
 //
 export default ColorCC;
