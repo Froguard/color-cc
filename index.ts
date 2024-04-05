@@ -200,11 +200,12 @@ export type ColorTool = AllMethods & {
   //
   colorify: typeof colorify;
   //
-  warn: ColorFunc;
-  warning: ColorFunc;
-  error: ColorFunc;
-  success: ColorFunc;
-  fail: ColorFunc;
+  warn: ColorFunc; // [warn] xxx
+  warning: ColorFunc; // [warn] xxx, (alias for warn)
+  error: ColorFunc; // [error] xxx
+  success: ColorFunc; // ✔️ xxxxx
+  fail: ColorFunc; // ✘ xxxxx
+  def: ColorFunc; // > xxx
 };
 
 /**
@@ -297,10 +298,15 @@ export function createColorfulTool(useColor?: boolean) {
     str = typeof str === 'string' ? str : JSON.stringify(str);
     return `${colorsTool.green('✔️')} ${str?.replace('\r', '')}`;
   };
-  // × xxxxx
+  // ✘ xxxxx
   colorsTool.fail = function (str: any) {
     str = typeof str === 'string' ? str : JSON.stringify(str);
     return `${colorsTool.red('✘')} ${str?.replace('\r', '')}`;
+  };
+  // > xxxxx
+  colorsTool.def = function (str: any) {
+    str = typeof str === 'string' ? str : JSON.stringify(str);
+    return `${colorsTool.gray('>')} ${str?.replace('\r', '')}`;
   };
 
   return colorsTool as ColorTool;

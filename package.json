@@ -1,6 +1,6 @@
 {
   "name": "color-cc",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Get colors in your node.js console, support commonjs / typescript / esnext, simplified version of colors",
   "author": "Froguard <figure_wf@163.com>",
   "main": "index.js",
