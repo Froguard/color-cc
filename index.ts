@@ -300,7 +300,7 @@ export function createColorfulTool(useColor?: boolean) {
   // × xxxxx
   colorsTool.fail = function (str: any) {
     str = typeof str === 'string' ? str : JSON.stringify(str);
-    return `${colorsTool.red('×')} ${str?.replace('\r', '')}`;
+    return `${colorsTool.red('✘')} ${str?.replace('\r', '')}`;
   };
 
   return colorsTool as ColorTool;

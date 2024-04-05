@@ -1,6 +1,6 @@
 {
   "name": "color-cc",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Get colors in your node.js console, support commonjs / typescript / esnext, simplified version of colors",
   "author": "Froguard <figure_wf@163.com>",
   "main": "index.js",
@@ -32,6 +32,10 @@
     "chalk": "^4.1.2",
     "debug": "^4.3.3",
     "eslint": "^8.7.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.0.1",
     "husky": "^7.0.1",
     "jest": "^27.4.0",
     "lint-staged": "^12.3.3",

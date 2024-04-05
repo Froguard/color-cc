@@ -1,0 +1,11 @@
+/node_modules
+/tpl
+
+.eslintrc.js
+.prettierrc.js
+.lintstagedrc.js
+
+tmp*
+*.ejs
+src/get-comp-owner/history/*.js
+local-*.js
