@@ -153,9 +153,9 @@ export function colorify(text: string | object, options?: Partial<ColorifyOption
 }
 
 /**
- *
- * @param options
- * @returns
+ * 生成转换函数
+ * @param {Partial<ColorifyOptions>} options
+ * @returns {Function}
  */
 function genFn(options?: Partial<ColorifyOptions>) {
   const { fore, back, style } = options || {};
@@ -210,8 +210,8 @@ export type ColorTool = AllMethods & {
 
 /**
  * expose
- * @param needColor 是否需要颜色
- * @returns {Object}
+ * @param {boolean} useColor 是否需要颜色
+ * @returns {ColorTool} colorsTool
  * @example
  *  let colors = createColorfulTool(true);
  *  const msg = colors.fore.back.style(text);  //
@@ -354,7 +354,7 @@ console.log(ColorCC.strike('strike'));
 /**
  * 每次执行都产生一个新的空函数,主要是本案例中颜色函数本身上面还会挂颜色函数，
  * - 如果使用一个noop，会导致其子属性和自己形成循环依赖(noop.noop=noop, noop.noop.noop=noop)
- * @returns
+ * @returns {Function} noop
  */
 function genNoop() {
   // 原样输出
@@ -364,19 +364,19 @@ function genNoop() {
 
 /**
  * 判断是否具有正常的 ansicode
- * @param code
- * @returns
+ * @param {unknown} code
+ * @returns {boolean}
  */
-function isCorrectCode(code: any): code is NonNullable<number> {
+function isCorrectCode(code: unknown): code is NonNullable<number> {
   // 原生 isNaN 对 understand 和 自定义 class 的实例会误判，不过这里不影响
   return !(code === undefined || code === null) && !isNaN(code); 
 }
 
 /**
- * 严格判断 object，会排除 null
- * @param obj
- * @returns
+ * 判断 object/array，会排除 null
+ * @param {unknown} obj
+ * @returns {boolean}
  */
-function isObject(obj: any): obj is NonNullable<object> {
+function isObject(obj: unknown): obj is NonNullable<object> {
   return obj !== null && typeof obj === 'object';
 }
