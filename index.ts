@@ -367,8 +367,9 @@ function genNoop() {
  * @param code
  * @returns
  */
-function isCorrectCode(code: any) {
-  return !(code === undefined || code === null) && !isNaN(code);
+function isCorrectCode(code: any): code is NonNullable<number> {
+  // 原生 isNaN 对 understand 和 自定义 class 的实例会误判，不过这里不影响
+  return !(code === undefined || code === null) && !isNaN(code); 
 }
 
 /**
@@ -376,6 +377,6 @@ function isCorrectCode(code: any) {
  * @param obj
  * @returns
  */
-function isObject(obj: any) {
+function isObject(obj: any): obj is NonNullable<object> {
   return obj !== null && typeof obj === 'object';
 }
