@@ -22,6 +22,8 @@ __coverage__/
 .nodemonrc.json
 .npmrc
 .nvmrc
+.prettierignore
+.prettierrc.js
 
 demo.ts
 demo.js
