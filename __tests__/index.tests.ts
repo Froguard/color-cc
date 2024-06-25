@@ -14,6 +14,7 @@ describe('colorcc:', () => {
       console.log('');
       console.log(ColorCC.red('red'));
       console.log(ColorCC.red.bgYellow('red.bgYellow'));
+      console.log(ColorCC.red.bgGray('red.bgGray'));
       console.log(ColorCC.red.strike('red.strike'));
       console.log(ColorCC.red.bgYellow.strike('red.bgYellow.strike'));
 

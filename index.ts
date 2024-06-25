@@ -63,13 +63,13 @@ export type AllCodePropName = ForeCodePropName | BackCodePropName | StyleCodePro
 // 函数名集合，完全和上面的属性值保持一致，目前暂时没想到比较好的办法，先穷举
 const foreFuns: ForeCodePropName[] = [
   'black',
-  'white',
-  'blue',
   'red',
   'green',
   'yellow',
-  'cyan',
+  'blue',
   'magenta',
+  'cyan',
+  'white',
   'gray',
   'grey',
   // 特有
@@ -90,6 +90,9 @@ const backFuns: BackCodePropName[] = [
   'bgBlue',
   'bgMagenta',
   'bgCyan',
+  'bgWhite',
+  'bgGray',
+  'bgGrey',
   // 特有
   'bgWhite',
   'bgBrightBlack',
@@ -369,7 +372,7 @@ function genNoop() {
  */
 function isCorrectCode(code: unknown): code is NonNullable<number> {
   // 原生 isNaN 对 understand 和 自定义 class 的实例会误判，不过这里不影响
-  return !(code === undefined || code === null) && !isNaN(code); 
+  return !(code === undefined || code === null) && !isNaN(code as any); 
 }
 
 /**
