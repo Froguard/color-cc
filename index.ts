@@ -296,10 +296,10 @@ export function createColorfulTool(useColor?: boolean) {
     str = str?.replace('\r', '');
     return `${prefixColor} ${colorsTool.red.bold(str.split('\n').join(`\n${space}`))}`;
   };
-  // ✔️ xxxxx
+  // ✔ xxxxx
   colorsTool.success = function (str: any) {
     str = typeof str === 'string' ? str : JSON.stringify(str);
-    return `${colorsTool.green('✔️')} ${str?.replace('\r', '')}`;
+    return `${colorsTool.green('✔')} ${str?.replace('\r', '')}`;
   };
   // ✘ xxxxx
   colorsTool.fail = function (str: any) {
