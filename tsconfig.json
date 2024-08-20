@@ -6,7 +6,7 @@
         "declaration": true,
         "sourceMap": false,
         "removeComments": false,
-        "newLine": "crlf",
+        "newLine": "lf",
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
