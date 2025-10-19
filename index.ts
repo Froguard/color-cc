@@ -5,9 +5,7 @@
  * 对于不支持颜色的控制台来说，可能会输出一些奇怪的ansi字符
  */
 import util from 'util'; // nodejs 端，先不考虑 browser 端
-import debug from 'debug';
 
-const log = debug('colorcc');
 
 const foreAnsiCode = {
   black: 30,
@@ -239,40 +237,40 @@ export function createColorfulTool(useColor?: boolean) {
   for (const fKey of foreFuns) {
     // 1.1.[colors.fore],   eg: colors.red
     colorsTool[fKey] = (needColor ? genFn({ fore: fKey }) : genNoop()) as ColorFunc & BackMethods & StyleMethods;
-    log(`F: colors.${fKey}`);
+    // log(`F: colors.${fKey}`);
     // 1.2.[colors.fore.back],  eg: colors.red.bgYellow
     for (const bKey of backFuns) {
       colorsTool[fKey][bKey] = (needColor ? genFn({ fore: fKey, back: bKey }) : genNoop()) as ColorFunc & StyleMethods;
-      log(`FB: colors.${fKey}.${bKey}`);
+      // log(`FB: colors.${fKey}.${bKey}`);
       // 1.3.[colors.fore.back.style],  eg: colors.red.bgYellow.bold
       for (const sKey of styleFuns) {
         colorsTool[fKey][bKey][sKey] = needColor ? genFn({ fore: fKey, back: bKey, style: sKey }) : genNoop();
-        log(`FBS: colors.${fKey}.${bKey}.${sKey}`);
+        // log(`FBS: colors.${fKey}.${bKey}.${sKey}`);
       }
     }
     // 1.4.[colors.fore.style],  eg: colors.red.bold
     for (const sKey of styleFuns) {
       (colorsTool[fKey] as StyleMethods)[sKey] = needColor ? genFn({ fore: fKey, style: sKey }) : genNoop();
-      log(`FS: colors.${fKey}.${sKey}`);
+      // log(`FS: colors.${fKey}.${sKey}`);
     }
   }
 
-  // [colors.back?.xx]
+  // [colors.back?.xx], eg: colors.bgRed
   for (const bKey of backFuns) {
     // [colors.back],  eg: colors.bgYellow
     colorsTool[bKey] = (needColor ? genFn({ back: bKey }) : genNoop()) as ColorFunc & StyleMethods;
-    log(`B: colors.${bKey}`);
+    // log(`B: colors.${bKey}`);
     // [colors.back.style],  eg: colors.bgYellow.bold
     for (const sKey of styleFuns) {
       colorsTool[bKey][sKey] = needColor ? genFn({ back: bKey, style: sKey }) : genNoop();
-      log(`BS: colors.${bKey}.${sKey}`);
+      // log(`BS: colors.${bKey}.${sKey}`);
     }
   }
 
   // [colors.style],  eg: colors.bold
   for (const sKey of styleFuns) {
     (colorsTool as StyleMethods)[sKey] = needColor ? genFn({ style: sKey }) : genNoop();
-    log(`S: colors.${sKey}`);
+    // log(`S: colors.${sKey}`);
   }
 
   // 常规组合：warn error success fail
