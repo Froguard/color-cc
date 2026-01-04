@@ -6,8 +6,7 @@
  */
 import util from 'util'; // nodejs 端，先不考虑 browser 端
 
-
-const foreAnsiCode = {
+const FORCE_ANSI_CODE = {
   black: 30,
   red: 31,
   green: 32,
@@ -26,8 +25,8 @@ const foreAnsiCode = {
   brightMagenta: 95,
   brightCyan: 96,
   brightWhite: 97,
-};
-const backAnsiCode = {
+} as const;
+const BACK_ANSI_CODE = {
   bgBlack: 40,
   bgRed: 41,
   bgGreen: 42,
@@ -46,80 +45,27 @@ const backAnsiCode = {
   bgBrightMagenta: 105,
   bgBrightCyan: 106,
   bgBrightWhite: 107,
-};
-const styleAnsiCode = {
+} as const;
+const STYLE_ANSI_CODE = {
   bold: 1,
   underline: 4,
   blink: 5,
   strike: 9,
-};
-export type ForeCodePropName = keyof typeof foreAnsiCode;
-export type BackCodePropName = keyof typeof backAnsiCode;
-export type StyleCodePropName = keyof typeof styleAnsiCode;
-export type AllCodePropName = ForeCodePropName | BackCodePropName | StyleCodePropName;
+} as const;
+export type FORCE_ANSI_CODE = keyof typeof FORCE_ANSI_CODE;
+export type BACK_ANSI_CODE = keyof typeof BACK_ANSI_CODE;
+export type STYLE_ANSI_CODE = keyof typeof STYLE_ANSI_CODE;
+export type ALLOW_ANSI_CODE = FORCE_ANSI_CODE | BACK_ANSI_CODE | STYLE_ANSI_CODE;
 
-// 函数名集合，完全和上面的属性值保持一致，目前暂时没想到比较好的办法，先穷举
-const foreFuns: ForeCodePropName[] = [
-  'black',
-  'red',
-  'green',
-  'yellow',
-  'blue',
-  'magenta',
-  'cyan',
-  'white',
-  'gray',
-  'grey',
-  // 特有
-  'brightBlack',
-  'brightRed',
-  'brightGreen',
-  'brightYellow',
-  'brightBlue',
-  'brightMagenta',
-  'brightCyan',
-  'brightWhite',
-];
-const backFuns: BackCodePropName[] = [
-  'bgBlack',
-  'bgRed',
-  'bgGreen',
-  'bgYellow',
-  'bgBlue',
-  'bgMagenta',
-  'bgCyan',
-  'bgWhite',
-  'bgGray',
-  'bgGrey',
-  // 特有
-  'bgWhite',
-  'bgBrightBlack',
-  'bgBrightRed',
-  'bgBrightGreen',
-  'bgBrightYellow',
-  'bgBrightBlue',
-  'bgBrightMagenta',
-  'bgBrightCyan',
-  'bgBrightWhite',
-];
-const styleFuns: StyleCodePropName[] = [
-  'bold',
-  'underline',
-  'blink',
-  'strike',
-  // 'normal'
-  // 'reset',
-  // 'dim',
-  // 'italic',
-  // 'inverse',
-  // 'hidden',
-  // 'strikethrough',
-];
+// 函数名集合，完全和上面的属性值保持一致
+const foreFuns: FORCE_ANSI_CODE[] = Object.keys(FORCE_ANSI_CODE) as FORCE_ANSI_CODE[]; 
+const backFuns: BACK_ANSI_CODE[] = Object.keys(BACK_ANSI_CODE) as BACK_ANSI_CODE[];
+const styleFuns: STYLE_ANSI_CODE[] = Object.keys(STYLE_ANSI_CODE) as STYLE_ANSI_CODE[];
 
 export interface ColorifyOptions {
-  fore: ForeCodePropName;
-  back: BackCodePropName;
-  style: StyleCodePropName;
+  fore: FORCE_ANSI_CODE;
+  back: BACK_ANSI_CODE;
+  style: STYLE_ANSI_CODE;
 }
 
 /**
@@ -138,11 +84,11 @@ export function colorify(text: string | object, options?: Partial<ColorifyOption
   // }
 
   const codes: number[] = [];
-  const foreCode = foreAnsiCode[fore];
+  const foreCode = FORCE_ANSI_CODE[fore];
   isCorrectCode(foreCode) && codes.push(foreCode);
-  const backCode = backAnsiCode[back];
+  const backCode = BACK_ANSI_CODE[back];
   isCorrectCode(backCode) && codes.push(backCode);
-  const styleCode = styleAnsiCode[style];
+  const styleCode = STYLE_ANSI_CODE[style];
   isCorrectCode(styleCode) && codes.push(styleCode);
 
   const FIX_CHARS = '\x1b'; // "\033";
@@ -179,17 +125,17 @@ function genFn(options?: Partial<ColorifyOptions>) {
 
 // 单层函数
 type ColorFunc = (...args: any[]) => string;
-
+// tool.s
 type StyleMethods = {
-  [k in StyleCodePropName]: ColorFunc;
+  [k in STYLE_ANSI_CODE]: ColorFunc;
 };
-
+// tool.b, tool.b.s
 type BackMethods = {
-  [k in BackCodePropName]: ColorFunc & StyleMethods;
+  [k in BACK_ANSI_CODE]: ColorFunc & StyleMethods;
 };
-
+// tool.f, tool.f.b, tool.f.b.s
 type ForeMethods = {
-  [k in ForeCodePropName]: ColorFunc & BackMethods & StyleMethods;
+  [k in FORCE_ANSI_CODE]: ColorFunc & BackMethods & StyleMethods;
 };
 
 type AllMethods = ForeMethods & BackMethods & StyleMethods;
@@ -320,35 +266,7 @@ export const ColorCC = createColorfulTool(true);
 
 //
 export default ColorCC;
-
-/*
-// com
-console.log('');
-console.log(ColorCC.error('error text...'));
-console.log(ColorCC.warn('warning text...'));
-console.log(ColorCC.warning('warning text...'));
-console.log(ColorCC.success('success text...'));
-console.log(ColorCC.fail('fail text...'));
-
-// F,  F.B,  F.S,  F.B.S
-console.log('');
-console.log(ColorCC.red('red'));
-console.log(ColorCC.red.bgYellow('red.bgYellow'));
-console.log(ColorCC.red.strike('red.strike'));
-console.log(ColorCC.red.bgYellow.strike('red.bgYellow.strike'));
-
-// B,  B.S
-console.log('');
-console.log(ColorCC.bgYellow('bgYellow'));
-console.log(ColorCC.bgYellow.strike('bgYellow.strike'));
-
-// S
-console.log('');
-console.log(ColorCC.bold('bold'));
-console.log(ColorCC.underline('underline'));
-console.log(ColorCC.blink('blink'));
-console.log(ColorCC.strike('strike'));
-*/
+//
 
 // =================================== common defines ==============================================
 
